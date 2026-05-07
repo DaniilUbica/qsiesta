@@ -1,8 +1,9 @@
 #include "NavigationWidget/navigationWidgetFactory.h"
 
 #include <extensionsystem/iplugin.h>
+#include <QQmlEngine>
 
-#include <QtWebEngineQuick/QtWebEngineQuick>
+#include "WebView/webViewRegister.hpp"
 
 using namespace Core;
 
@@ -14,18 +15,14 @@ class ProcrastinationPlugin final : public ExtensionSystem::IPlugin {
 
 public:
     ProcrastinationPlugin() = default;
-
     ~ProcrastinationPlugin() final {}
 
     void initialize() final {
-        QtWebEngineQuick::initialize();
-
-        const auto factory = new NavigationWidgetFactory();
+        webViewRegister::registerPlatformType();
+        m_factory = std::make_unique<NavigationWidgetFactory>();
     }
 
-    void extensionsInitialized() final {
-
-    }
+    void extensionsInitialized() final {}
 
     ShutdownFlag aboutToShutdown() final {
         return SynchronousShutdown;

@@ -1,7 +1,7 @@
 import QtQuick
-import QtWebEngine
+import Procrastination 1.0
 
-WebEngineView {
+WebView {
     id: root
-    url: "https://www.tiktok.com/login"
+    url: "https://www.tiktok.com/foryou"
 }

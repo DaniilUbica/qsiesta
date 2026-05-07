@@ -1,20 +1,23 @@
 #include "navigationWidget.h"
 
-#include <QtWebEngineQuick/QtWebEngineQuick>
 #include <QUrl>
 #include <QVBoxLayout>
 
 namespace Procrastination::Internal {
 
-NavigationWidget::NavigationWidget(QWidget *parent) :
-    QWidget(parent) , m_quickWidget(new QQuickWidget(this)) {
+NavigationWidget::NavigationWidget(QWidget *parent)
+    : QWidget(parent)
+    , m_quickView(new QQuickView)
+{
+    m_quickView->setResizeMode(QQuickView::SizeRootObjectToView);
+    m_quickView->setSource(QUrl("qrc:/main.qml"));
 
-    const auto layout = new QVBoxLayout(this);
+    auto *container = QWidget::createWindowContainer(m_quickView, this);
+    container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(m_quickWidget);
-
-    m_quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    m_quickWidget->setSource(QUrl("qrc:/main.qml"));
+    layout->addWidget(container);
 }
 
 } // namespace Procrastination::Internal

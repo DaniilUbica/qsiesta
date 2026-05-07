@@ -2,7 +2,7 @@
 
 #include <coreplugin/inavigationwidgetfactory.h>
 
-#include <QQuickWidget>
+#include <QQuickView>
 #include <QWidget>
 
 namespace Procrastination::Internal {
@@ -13,7 +13,7 @@ public:
     explicit NavigationWidget(QWidget *parent = nullptr);
 
 private:
-    QQuickWidget* m_quickWidget;
+    QQuickView *m_quickView;
 };
 
 } // namespace Procrastination::Internal

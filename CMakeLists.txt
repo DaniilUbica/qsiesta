@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(QtCreator REQUIRED COMPONENTS Core)
-find_package(Qt6 COMPONENTS Widgets Quick QuickWidgets WebEngineQuick REQUIRED)
+find_package(Qt6 COMPONENTS Widgets Quick QuickWidgets REQUIRED)
 
 set(CREATOR_LIBS
   QtCreator::Core
@@ -26,7 +26,7 @@ set(TARGET_LIBS
   Qt::Widgets
   Qt::Quick
   Qt::QuickWidgets
-  Qt::WebEngineQuick
+
   QtCreator::ExtensionSystem
   QtCreator::Utils
 )
@@ -36,6 +36,8 @@ set(SOURCES
 
   src/NavigationWidget/navigationWidget.cpp
   src/NavigationWidget/navigationWidgetFactory.cpp
+
+  src/WebView/webViewBase.cpp
 )
 
 set(HEADERS
@@ -44,7 +46,35 @@ set(HEADERS
 
   src/NavigationWidget/navigationWidget.h
   src/NavigationWidget/navigationWidgetFactory.h
+
+  src/WebView/webViewBase.h
+  src/WebView/webViewRegister.hpp
 )
+
+if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+  set(SOURCES
+    ${SOURCES}
+    src/WebView/macOS/webView.mm
+  )
+
+  set(HEADERS
+    ${HEADERS}
+    src/WebView/macOS/webView.h
+  )
+
+  set(TARGET_LIBS
+    ${TARGET_LIBS}
+    "-framework WebKit"
+    "-framework AppKit"
+  )
+
+  set_source_files_properties(
+    src/WebView/macOS/webView.mm
+    PROPERTIES COMPILE_FLAGS "-fobjc-arc"
+  )
+
+  enable_language(OBJCXX)
+endif()
 
 set(RESOURCE
   src/QMLFiles.qrc
@@ -76,8 +106,8 @@ find_program(QtCreatorExecutable
 
 if (QtCreatorExecutable)
   add_custom_target(RunQtCreator
-    COMMAND ${QtCreatorExecutable} -pluginpath $<TARGET_FILE_DIR:procrastination>
-    DEPENDS procrastination
+    COMMAND ${QtCreatorExecutable} -pluginpath $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>
+    DEPENDS ${CMAKE_PROJECT_NAME}
   )
   set_target_properties(RunQtCreator PROPERTIES FOLDER "qtc_runnable")
 endif()
