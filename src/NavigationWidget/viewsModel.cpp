@@ -2,7 +2,7 @@
 
 #include <utils/theme/theme.h>
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 ViewsModel::ViewsModel(QObject* parent) : QStandardItemModel(parent) {
     const auto iconsPath = QString(":/icons/") +
@@ -20,4 +20,4 @@ void ViewsModel::addView(const QString& name, const QUrl& source, const QString&
     appendRow(item);
 }
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

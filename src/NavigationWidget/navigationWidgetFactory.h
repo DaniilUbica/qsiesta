@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QQuickView>
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 class NavigationWidget;
 
@@ -21,4 +21,4 @@ private:
     QQuickView* m_contentView;
 };
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

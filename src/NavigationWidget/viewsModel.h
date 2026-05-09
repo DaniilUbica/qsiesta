@@ -3,7 +3,7 @@
 #include <QStandardItemModel>
 #include <QUrl>
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 namespace views::names {
     static const QString tikTok  = QStringLiteral("TikTok");
@@ -22,4 +22,4 @@ private:
     void addView(const QString& name, const QUrl& source, const QString& icon = "");
 };
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

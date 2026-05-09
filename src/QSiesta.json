@@ -1,14 +1,15 @@
 {
-    "Id" : "procrastination",
-    "Name" : "Procrastination",
+    "Id" : "qsiesta",
+    "Name" : "QSiesta",
     "Version" : "0.0.1",
     "CompatVersion" : "0.0.1",
     "Vendor" : "DaniilUbica",
     "VendorId" : "daniilubica",
     "Copyright" : "(C) DaniilUbica",
-    "License" : "Put short license information here",
-    "Description" : "Put a short description of your plugin here",
+    "License" : "MIT",
+    "Description" : "A plugin for Qt Creator to relax from coding",
     "Url" : "https://www.daniilubica.lol",
     "DocumentationUrl" : "",
-    ${IDE_PLUGIN_DEPENDENCIES}
-}
+    "Dependencies" : [
+        { "Id" : "core", "Version" : "19.0.0" }
+    ]}

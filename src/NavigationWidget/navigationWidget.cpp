@@ -1,6 +1,6 @@
 #include "navigationWidget.h"
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 const unsigned int ICON_SIZE = 10;
 
@@ -42,4 +42,4 @@ void NavigationWidget::onModelItemClicked(const QModelIndex& index) {
     }
 }
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

@@ -1,12 +1,12 @@
 #include "navigationWidgetFactory.h"
 
-#include "procrastinationTr.h"
-#include "procrastinationConstants.h"
+#include "qsiestaTr.h"
+#include "qsiestaConstants.h"
 #include "navigationWidget.h"
 
 #include <QToolButton>
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 NavigationWidgetFactory::NavigationWidgetFactory(QQuickView* contentView) {
     m_contentView = contentView;
@@ -32,4 +32,4 @@ Core::NavigationView NavigationWidgetFactory::createWidget() {
     return { widget, { backButton } };
 }
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

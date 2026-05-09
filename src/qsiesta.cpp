@@ -9,15 +9,15 @@
 
 using namespace Core;
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
-class ProcrastinationPlugin final : public ExtensionSystem::IPlugin {
+class QSiestaPlugin final : public ExtensionSystem::IPlugin {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "Procrastination.json")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "QSiesta.json")
 
 public:
-    ProcrastinationPlugin() = default;
-    ~ProcrastinationPlugin() final {}
+    QSiestaPlugin() = default;
+    ~QSiestaPlugin() final {}
 
     void initialize() final {
         webViewRegister::registerPlatformType();
@@ -40,6 +40,6 @@ private:
     std::unique_ptr<NavigationWidgetFactory> m_factory;
 };
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal
 
-#include <procrastination.moc>
+#include <qsiesta.moc>

@@ -1,3 +1,4 @@
 .qtcreator/
 build/
 .DS_Store
+CMakeUserPresets.json

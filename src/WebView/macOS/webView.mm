@@ -5,10 +5,19 @@
 
 #include <QQuickWindow>
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 class WebView::Private {
 public:
+    Private() {
+        WKWebViewConfiguration* config = [[WKWebViewConfiguration alloc] init];
+        config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        config.websiteDataStore = [WKWebsiteDataStore defaultDataStore];
+
+        wkView = [[WKWebView alloc] initWithFrame:NSZeroRect configuration:config];
+        wkView.hidden = YES;
+    }
+
     ~Private() {
         if (wkView) {
             [wkView removeFromSuperview];
@@ -25,22 +34,11 @@ WebView::WebView(QQuickItem* parent) : QQuickItem(parent) {
 
     d = std::make_unique<WebView::Private>();
 
-    WKWebViewConfiguration* config = [[WKWebViewConfiguration alloc] init];
-    config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
-    config.websiteDataStore = [WKWebsiteDataStore defaultDataStore];
-
-    d->wkView = [[WKWebView alloc] initWithFrame:NSZeroRect configuration:config];
-    d->wkView.hidden = YES;
-
     connect(this, &QQuickItem::windowChanged, this, &WebView::attachToWindow);
 }
 
 WebView::~WebView() {
     disconnect(this, &QQuickItem::windowChanged, this, &WebView::attachToWindow);
-    if (d->wkView) {
-        [d->wkView removeFromSuperview];
-        d->wkView = nil;
-    }
 }
 
 void WebView::setUrl(const QUrl& url) {
@@ -72,7 +70,7 @@ void WebView::attachToWindow() {
         return;
     }
 
-    NSView* hostView = (__bridge NSView *)reinterpret_cast<void *>(window()->winId());
+    NSView* hostView = (__bridge NSView *)reinterpret_cast<void*>(window()->winId());
     if (!hostView) {
         return;
     }
@@ -95,7 +93,7 @@ void WebView::updateFrame() {
         return;
     }
 
-    NSView* hostView = (__bridge NSView *)reinterpret_cast<void *>(window()->winId());
+    NSView* hostView = (__bridge NSView *)reinterpret_cast<void*>(window()->winId());
     if (!hostView) {
         return;
     }
@@ -112,4 +110,4 @@ void WebView::updateFrame() {
     d->wkView.hidden = !isVisible();
 }
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

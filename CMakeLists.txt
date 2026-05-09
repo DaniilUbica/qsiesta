@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(Qt6_DIR "/opt/homebrew/Cellar/qt/6.7.3/lib/cmake/Qt6" CACHE PATH "Qt6 CMake config" FORCE)
-
-list(PREPEND CMAKE_PREFIX_PATH
-  "/opt/homebrew/Cellar/qt/6.7.3/lib/cmake"
-  "/Users/daniilubica/Developer/dev/Qt/Qt6/qt-creator-19.0.0/build/cmake"
-)
-project(procrastination)
+project(qsiesta)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -32,7 +26,8 @@ set(TARGET_LIBS
 )
 
 set(SOURCES
-  src/procrastination.cpp
+  src/qsiesta.cpp
+  src/QSiesta.json
 
   src/NavigationWidget/navigationWidget.cpp
   src/NavigationWidget/navigationWidgetFactory.cpp
@@ -40,8 +35,8 @@ set(SOURCES
 )
 
 set(HEADERS
-  src/procrastinationConstants.h
-  src/procrastinationTr.h
+  src/qsiestaConstants.h
+  src/qsiestaTr.h
 
   src/NavigationWidget/navigationWidget.h
   src/NavigationWidget/navigationWidgetFactory.h

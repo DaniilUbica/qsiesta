@@ -2,7 +2,7 @@
 
 #include <QQuickItem>
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 class WebView : public QQuickItem {
     Q_OBJECT
@@ -29,4 +29,4 @@ private:
     QUrl m_url;
 };
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal

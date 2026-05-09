@@ -10,7 +10,7 @@
 
 #include "NavigationWidget/viewsModel.h"
 
-namespace Procrastination::Internal {
+namespace QSiesta::Internal {
 
 class NavigationWidget : public QWidget {
     Q_OBJECT
@@ -33,4 +33,4 @@ private:
     QStackedLayout* m_layout = nullptr;
 };
 
-} // namespace Procrastination::Internal
+} // namespace QSiesta::Internal
