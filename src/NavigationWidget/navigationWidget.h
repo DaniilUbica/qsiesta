@@ -9,6 +9,7 @@
 #include <QWidget>
 
 #include "NavigationWidget/viewsModel.h"
+#include "MiniGames/MiniGamesManager/miniGamesManager.h"
 
 namespace QSiesta::Internal {
 
@@ -31,6 +32,8 @@ private:
     Utils::NavigationTreeView* m_treeView = nullptr;
 
     QStackedLayout* m_layout = nullptr;
+
+    minigame::MiniGamesManager* m_miniGamesManager = nullptr;
 };
 
 } // namespace QSiesta::Internal
