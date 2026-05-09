@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons/dark-theme">
+        <file alias="tiktok.svg">../icons/svg/tiktok-light.svg</file>
+    </qresource>
+    <qresource prefix="/icons/light-theme">
+        <file alias="tiktok.svg">../icons/svg/tiktok-dark.svg</file>
+    </qresource>
+</RCC>

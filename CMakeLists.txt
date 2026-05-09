@@ -75,6 +75,7 @@ endif()
 
 set(RESOURCE
   src/QMLFiles.qrc
+  src/Resource.qrc
 )
 
 add_qtc_plugin(${CMAKE_PROJECT_NAME}

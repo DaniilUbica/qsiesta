@@ -13,13 +13,13 @@ class ViewsModel : public QStandardItemModel {
     Q_OBJECT
 public:
     enum Roles {
-        SourceRole = Qt::UserRole + 1,
+        SourceRole = Qt::UserRole + 1
     };
 
     ViewsModel(QObject* parent = nullptr);
 
 private:    
-    void addView(const QString& name, const QUrl& source);
+    void addView(const QString& name, const QUrl& source, const QString& icon = "");
 };
 
 } // namespace Procrastination::Internal

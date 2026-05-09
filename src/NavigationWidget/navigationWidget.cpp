@@ -2,6 +2,8 @@
 
 namespace Procrastination::Internal {
 
+const unsigned int ICON_SIZE = 10;
+
 NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
     m_currentView = new QQuickView();
     m_currentView->setResizeMode(QQuickView::SizeRootObjectToView);
@@ -16,6 +18,7 @@ NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
     m_treeView->setModel(m_viewsModel);
     m_treeView->setHeaderHidden(true);
     m_treeView->setRootIsDecorated(false);
+    m_treeView->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
 
     m_layout = new QStackedLayout(this);
     m_layout->setContentsMargins(0, 0, 0, 0);
