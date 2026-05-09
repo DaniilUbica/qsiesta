@@ -1,0 +1,17 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": { "major": 3, "minor": 16, "patch": 0 },
+    "configurePresets": [
+        {
+            "name": "local",
+            "displayName": "Local",
+            "inherits": "debug",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_MAKE_PROGRAM": "/opt/homebrew/bin/ninja",
+                "CMAKE_PREFIX_PATH": "/path/to/qt/lib/cmake;/path/to/qtcreator/build/cmake",
+                "QtCreator_DIR": "/path/to/qtcreator/build/cmake"
+            }
+        }
+    ]
+}
