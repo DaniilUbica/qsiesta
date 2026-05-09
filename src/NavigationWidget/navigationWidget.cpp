@@ -11,6 +11,9 @@ NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
     m_contentView->setResizeMode(QQuickView::SizeRootObjectToView);
     new QQmlFileSelector(m_contentView->engine(), m_contentView);
 
+    m_miniGamesManager = new minigame::MiniGamesManager(this);
+    m_miniGamesManager->setupContext(m_contentView);
+
     m_contentViewContainer = QWidget::createWindowContainer(m_contentView, this);
     m_contentViewContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -39,11 +42,19 @@ void NavigationWidget::openViewsList() {
 }
 
 void NavigationWidget::onModelItemClicked(const QModelIndex& index) {
-    if (const auto item = m_viewsModel->itemFromIndex(index)) {
-        m_contentView->setSource(item->data(ViewsModel::SourceRole).toUrl());
-        m_layout->setCurrentWidget(m_contentViewContainer);
-        Q_EMIT viewsListVisibleChanged(false);
+    const auto item = m_viewsModel->itemFromIndex(index);
+    if (!item) {
+        return;
     }
+
+    const auto gameVariant = item->data(ViewsModel::GameRole);
+    if (gameVariant.isValid()) {
+        m_miniGamesManager->setCurrentGame(static_cast<minigame::MiniGame>(gameVariant.toInt()));
+    }
+
+    m_contentView->setSource(item->data(ViewsModel::SourceRole).toUrl());
+    m_layout->setCurrentWidget(m_contentViewContainer);
+    Q_EMIT viewsListVisibleChanged(false);
 }
 
 } // namespace QSiesta::Internal
