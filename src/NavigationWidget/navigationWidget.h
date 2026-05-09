@@ -15,7 +15,7 @@ namespace QSiesta::Internal {
 class NavigationWidget : public QWidget {
     Q_OBJECT
 public:
-    explicit NavigationWidget(QQuickView* contentView, QWidget* parent = nullptr);
+    explicit NavigationWidget(QWidget* parent = nullptr);
 
     void openViewsList();
 

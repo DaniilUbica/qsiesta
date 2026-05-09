@@ -22,7 +22,7 @@ public:
         if (wkView) {
             [wkView removeFromSuperview];
             [wkView release];
-            wkView = nullptr;
+            wkView = nil;
         }
     }
 
@@ -34,12 +34,14 @@ WebView::WebView(QQuickItem* parent) : QQuickItem(parent) {
 
     d = std::make_unique<WebView::Private>();
 
-    connect(this, &QQuickItem::windowChanged, this, &WebView::attachToWindow);
+    connect(this, &QQuickItem::windowChanged, this, [this](QQuickWindow* win) {
+        if (win) {
+            attachToWindow();
+        }
+    });
 }
 
-WebView::~WebView() {
-    disconnect(this, &QQuickItem::windowChanged, this, &WebView::attachToWindow);
-}
+WebView::~WebView() {}
 
 void WebView::setUrl(const QUrl& url) {
     if (!d->wkView || m_url == url) {
@@ -60,8 +62,20 @@ void WebView::geometryChange(const QRectF& newGeometry, const QRectF& oldGeometr
 
 void WebView::itemChange(ItemChange change, const ItemChangeData& data) {
     QQuickItem::itemChange(change, data);
-    if (change == ItemSceneChange || change == ItemVisibleHasChanged) {
-        attachToWindow();
+
+    if (change == ItemSceneChange) {
+        if (window()) {
+            attachToWindow();
+        }
+        else if (d->wkView) {
+            [d->wkView removeFromSuperview];
+            d->wkView.hidden = YES;
+        }
+    }
+    else if (change == ItemVisibleHasChanged) {
+        if (window()) {
+            attachToWindow();
+        }
     }
 }
 

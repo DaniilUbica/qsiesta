@@ -1,11 +1,15 @@
 #include "navigationWidget.h"
 
+#include <QQmlFileSelector>
+
 namespace QSiesta::Internal {
 
 const unsigned int ICON_SIZE = 10;
 
-NavigationWidget::NavigationWidget(QQuickView* contentView, QWidget* parent) : QWidget(parent) {
-    m_contentView = contentView;
+NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
+    m_contentView = new QQuickView();
+    m_contentView->setResizeMode(QQuickView::SizeRootObjectToView);
+    new QQmlFileSelector(m_contentView->engine(), m_contentView);
 
     m_contentViewContainer = QWidget::createWindowContainer(m_contentView, this);
     m_contentViewContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

@@ -8,16 +8,14 @@
 
 namespace QSiesta::Internal {
 
-NavigationWidgetFactory::NavigationWidgetFactory(QQuickView* contentView) {
-    m_contentView = contentView;
-
+NavigationWidgetFactory::NavigationWidgetFactory() {
     setDisplayName(Tr::tr(Constants::PLUGIN_ID));
     setPriority(500);
     setId(Constants::PLUGIN_ID);
 }
 
 Core::NavigationView NavigationWidgetFactory::createWidget() {
-    const auto widget = new NavigationWidget(m_contentView);
+    const auto widget = new NavigationWidget();
 
     const auto backButton = new QToolButton();
     backButton->setIcon(QIcon::fromTheme("go-previous"));

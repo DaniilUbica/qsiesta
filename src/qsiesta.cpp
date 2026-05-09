@@ -2,9 +2,6 @@
 
 #include <extensionsystem/iplugin.h>
 
-#include <QQmlEngine>
-#include <QQmlFileSelector>
-
 #include "WebView/webViewRegister.hpp"
 
 using namespace Core;
@@ -21,13 +18,7 @@ public:
 
     void initialize() final {
         webViewRegister::registerPlatformType();
-
-        const auto contentView = new QQuickView();
-        contentView->setResizeMode(QQuickView::SizeRootObjectToView);
-        contentView->setVisible(false);
-        new QQmlFileSelector(contentView->engine(), contentView);
-
-        m_factory = std::make_unique<NavigationWidgetFactory>(contentView);
+        m_factory = std::make_unique<NavigationWidgetFactory>();
     }
 
     void extensionsInitialized() final {}
