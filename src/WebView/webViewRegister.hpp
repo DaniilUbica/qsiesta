@@ -4,16 +4,14 @@
     #include "WebView/webViewBase.h"
 #endif
 
-#include "procrastinationConstants.h"
-
 namespace Procrastination::Internal {
 namespace webViewRegister {
 
     static void registerPlatformType() {
         #ifdef __APPLE__
-            qmlRegisterType<WebView>(Constants::PLUGIN_ID, 1, 0, "WebView");
+            qmlRegisterType<WebView>("procrastination.plugin.types", 1, 0, "WebView");
         #else
-            qmlRegisterType<WebViewBase>("Procrastination", 1, 0, "WebView");
+            qmlRegisterType<WebViewBase>("procrastination.plugin.types", 1, 0, "WebView");
         #endif
     }
 

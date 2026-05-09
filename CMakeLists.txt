@@ -36,6 +36,7 @@ set(SOURCES
 
   src/NavigationWidget/navigationWidget.cpp
   src/NavigationWidget/navigationWidgetFactory.cpp
+  src/NavigationWidget/viewsModel.cpp
 
   src/WebView/webViewBase.cpp
 )
@@ -46,6 +47,7 @@ set(HEADERS
 
   src/NavigationWidget/navigationWidget.h
   src/NavigationWidget/navigationWidgetFactory.h
+  src/NavigationWidget/viewsModel.h
 
   src/WebView/webViewBase.h
   src/WebView/webViewRegister.hpp
@@ -66,11 +68,6 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     ${TARGET_LIBS}
     "-framework WebKit"
     "-framework AppKit"
-  )
-
-  set_source_files_properties(
-    src/WebView/macOS/webView.mm
-    PROPERTIES COMPILE_FLAGS "-fobjc-arc"
   )
 
   enable_language(OBJCXX)

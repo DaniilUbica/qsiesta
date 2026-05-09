@@ -1,8 +1,5 @@
 <RCC>
-    <qresource prefix="/">
-        <file alias="main.qml">qml/main.qml</file>
-    </qresource>
     <qresource prefix="/views">
-        <file alias="QMWebView.qml">qml/views/QMWebView.qml</file>
+        <file alias="QMTikTokView.qml">qml/views/QMTikTokView.qml</file>
     </qresource>
 </RCC>

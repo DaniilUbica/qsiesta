@@ -1,5 +1,6 @@
 import QtQuick
-import Procrastination 1.0
+
+import procrastination.plugin.types 1.0
 
 WebView {
     id: root

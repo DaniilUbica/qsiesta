@@ -9,6 +9,14 @@ namespace Procrastination::Internal {
 
 class WebView::Private {
 public:
+    ~Private() {
+        if (wkView) {
+            [wkView removeFromSuperview];
+            [wkView release];
+            wkView = nullptr;
+        }
+    }
+
     WKWebView* wkView = nil;
 };
 
@@ -28,6 +36,7 @@ WebView::WebView(QQuickItem* parent) : WebViewBase(parent) {
 }
 
 WebView::~WebView() {
+    disconnect(this, &QQuickItem::windowChanged, this, &WebView::attachToWindow);
     if (d->wkView) {
         [d->wkView removeFromSuperview];
         d->wkView = nil;
