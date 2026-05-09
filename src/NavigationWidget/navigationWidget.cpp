@@ -4,13 +4,11 @@ namespace Procrastination::Internal {
 
 const unsigned int ICON_SIZE = 10;
 
-NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
-    m_currentView = new QQuickView();
-    m_currentView->setResizeMode(QQuickView::SizeRootObjectToView);
-    m_currentView->setVisible(false);
+NavigationWidget::NavigationWidget(QQuickView* contentView, QWidget* parent) : QWidget(parent) {
+    m_contentView = contentView;
 
-    m_currentViewContainer = QWidget::createWindowContainer(m_currentView, this);
-    m_currentViewContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_contentViewContainer = QWidget::createWindowContainer(m_contentView, this);
+    m_contentViewContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_viewsModel = new ViewsModel(this);
 
@@ -23,7 +21,7 @@ NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
     m_layout = new QStackedLayout(this);
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->addWidget(m_treeView);
-    m_layout->addWidget(m_currentViewContainer);
+    m_layout->addWidget(m_contentViewContainer);
     m_layout->setCurrentWidget(m_treeView);
 
     connect(m_treeView, &QAbstractItemView::clicked, this, &NavigationWidget::onModelItemClicked);
@@ -38,8 +36,8 @@ void NavigationWidget::openViewsList() {
 
 void NavigationWidget::onModelItemClicked(const QModelIndex& index) {
     if (const auto item = m_viewsModel->itemFromIndex(index)) {
-        m_currentView->setSource(item->data(ViewsModel::SourceRole).toUrl());
-        m_layout->setCurrentWidget(m_currentViewContainer);
+        m_contentView->setSource(item->data(ViewsModel::SourceRole).toUrl());
+        m_layout->setCurrentWidget(m_contentViewContainer);
         Q_EMIT viewsListVisibleChanged(false);
     }
 }

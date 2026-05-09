@@ -37,8 +37,6 @@ set(SOURCES
   src/NavigationWidget/navigationWidget.cpp
   src/NavigationWidget/navigationWidgetFactory.cpp
   src/NavigationWidget/viewsModel.cpp
-
-  src/WebView/webViewBase.cpp
 )
 
 set(HEADERS
@@ -49,7 +47,6 @@ set(HEADERS
   src/NavigationWidget/navigationWidgetFactory.h
   src/NavigationWidget/viewsModel.h
 
-  src/WebView/webViewBase.h
   src/WebView/webViewRegister.hpp
 )
 

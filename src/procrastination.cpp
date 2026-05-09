@@ -1,7 +1,9 @@
 #include "NavigationWidget/navigationWidgetFactory.h"
 
 #include <extensionsystem/iplugin.h>
+
 #include <QQmlEngine>
+#include <QQmlFileSelector>
 
 #include "WebView/webViewRegister.hpp"
 
@@ -19,7 +21,13 @@ public:
 
     void initialize() final {
         webViewRegister::registerPlatformType();
-        m_factory = std::make_unique<NavigationWidgetFactory>();
+
+        const auto contentView = new QQuickView();
+        contentView->setResizeMode(QQuickView::SizeRootObjectToView);
+        contentView->setVisible(false);
+        new QQmlFileSelector(contentView->engine(), contentView);
+
+        m_factory = std::make_unique<NavigationWidgetFactory>(contentView);
     }
 
     void extensionsInitialized() final {}

@@ -15,7 +15,7 @@ namespace Procrastination::Internal {
 class NavigationWidget : public QWidget {
     Q_OBJECT
 public:
-    explicit NavigationWidget(QWidget* parent = nullptr);
+    explicit NavigationWidget(QQuickView* contentView, QWidget* parent = nullptr);
 
     void openViewsList();
 
@@ -24,8 +24,8 @@ public:
     Q_SIGNAL void viewsListVisibleChanged(bool visible);
 
 private:
-    QQuickView* m_currentView = nullptr;
-    QWidget* m_currentViewContainer = nullptr;
+    QQuickView* m_contentView = nullptr;
+    QWidget* m_contentViewContainer = nullptr;
 
     ViewsModel* m_viewsModel = nullptr;
     Utils::NavigationTreeView* m_treeView = nullptr;

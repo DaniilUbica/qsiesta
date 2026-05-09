@@ -2,4 +2,8 @@
     <qresource prefix="/views">
         <file alias="QMTikTokView.qml">qml/views/QMTikTokView.qml</file>
     </qresource>
+    <qresource prefix="/controls">
+        <file alias="webView/WebView.qml">qml/controls/webView/WebView.qml</file>
+        <file alias="webView/+macos/WebView.qml">qml/controls/webView/+macos/WebView.qml</file>
+    </qresource>
 </RCC>

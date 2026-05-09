@@ -20,7 +20,7 @@ public:
     WKWebView* wkView = nil;
 };
 
-WebView::WebView(QQuickItem* parent) : WebViewBase(parent) {
+WebView::WebView(QQuickItem* parent) : QQuickItem(parent) {
     setFlag(ItemHasContents, false);
 
     d = std::make_unique<WebView::Private>();
@@ -44,24 +44,24 @@ WebView::~WebView() {
 }
 
 void WebView::setUrl(const QUrl& url) {
-    qDebug() << "setUrl" << url;
-    WebViewBase::setUrl(url);
-
-    if (!d->wkView) {
+    if (!d->wkView || m_url == url) {
         return;
     }
+
+    m_url = url;
+    Q_EMIT urlChanged(m_url);
 
     NSURL* nsUrl = [NSURL URLWithString:url.toString().toNSString()];
     [d->wkView loadRequest:[NSURLRequest requestWithURL:nsUrl]];
 }
 
 void WebView::geometryChange(const QRectF& newGeometry, const QRectF& oldGeometry) {
-    WebViewBase::geometryChange(newGeometry, oldGeometry);
+    QQuickItem::geometryChange(newGeometry, oldGeometry);
     updateFrame();
 }
 
 void WebView::itemChange(ItemChange change, const ItemChangeData& data) {
-    WebViewBase::itemChange(change, data);
+    QQuickItem::itemChange(change, data);
     if (change == ItemSceneChange || change == ItemVisibleHasChanged) {
         attachToWindow();
     }
