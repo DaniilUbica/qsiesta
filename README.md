@@ -2,8 +2,6 @@
 
 ## A plugin for Qt Creator to relax from coding
 
-Because every build deserves a little siesta.
-
 ---
 
 ### Preview
