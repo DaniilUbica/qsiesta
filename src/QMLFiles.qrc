@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/views">
         <file alias="QMTikTokView.qml">qml/views/QMTikTokView.qml</file>
+        <file alias="QMGameView.qml">qml/views/QMGameView.qml</file>
     </qresource>
     <qresource prefix="/controls">
         <file alias="webView/WebView.qml">qml/controls/webView/WebView.qml</file>

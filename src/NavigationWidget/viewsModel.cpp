@@ -9,6 +9,7 @@ ViewsModel::ViewsModel(QObject* parent) : QStandardItemModel(parent) {
             (Utils::creatorTheme()->flag(Utils::Theme::DarkUserInterface) ? "dark-theme/" : "light-theme/");
 
     addView(views::names::tikTok, QUrl("qrc:/views/QMTikTokView.qml"), iconsPath + "tiktok.svg");
+    addGame(views::names::snake, minigame::MiniGame::Snake, iconsPath + "snake.svg");
 }
 
 void ViewsModel::addView(const QString& name, const QUrl& source, const QString& icon) {
@@ -16,7 +17,15 @@ void ViewsModel::addView(const QString& name, const QUrl& source, const QString&
     item->setData(source, SourceRole);
     item->setEditable(false);
     item->setIcon(QIcon(icon));
+    appendRow(item);
+}
 
+void ViewsModel::addGame(const QString& name, minigame::MiniGame game, const QString& icon) {
+    const auto item = new QStandardItem(name);
+    item->setData(QUrl("qrc:/views/QMGameView.qml"), SourceRole);
+    item->setData(static_cast<int>(game), GameRole);
+    item->setEditable(false);
+    item->setIcon(QIcon(icon));
     appendRow(item);
 }
 

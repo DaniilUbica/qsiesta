@@ -83,6 +83,9 @@ add_qtc_plugin(${CMAKE_PROJECT_NAME}
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE src)
 
+add_subdirectory(src/MiniGames)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minigames)
+
 get_target_property(QtCreatorCorePath QtCreator::Core LOCATION)
 
 find_program(QtCreatorExecutable
