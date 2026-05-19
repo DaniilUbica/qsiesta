@@ -26,6 +26,7 @@ jobs:
             platform: windows_x64,
             qt_host: windows,
             qt_arch: win64_msvc2022_64,
+            qt_modules: "qtwebengine",
             cc: "cl", cxx: "cl",
             environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
           }
@@ -35,6 +36,7 @@ jobs:
             platform: linux_x64,
             qt_host: linux,
             qt_arch: linux_gcc_64,
+            qt_modules: "qtwebengine",
             cc: "gcc", cxx: "g++"
           }
         - {
@@ -43,6 +45,7 @@ jobs:
             platform: mac_x64,
             qt_host: mac,
             qt_arch: clang_64,
+            qt_modules: "",
             cc: "clang", cxx: "clang++"
           }
 
@@ -79,6 +82,7 @@ jobs:
         host: ${{ matrix.config.qt_host }}
         target: desktop
         arch: ${{ matrix.config.qt_arch }}
+        modules: ${{ matrix.config.qt_modules }}
         dir: ${{ github.workspace }}/qt/
         cache: true
 
