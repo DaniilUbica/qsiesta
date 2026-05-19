@@ -12,6 +12,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(QtCreator REQUIRED COMPONENTS Core)
 find_package(Qt6 COMPONENTS Widgets Quick QuickWidgets REQUIRED)
 
+if (CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Windows")
+  find_package(Qt6 COMPONENTS WebEngineQuick REQUIRED)
+endif()
+
 set(CREATOR_LIBS
   QtCreator::Core
 )
@@ -63,6 +67,11 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
   )
 
   enable_language(OBJCXX)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Windows")
+  set(TARGET_LIBS
+    ${TARGET_LIBS}
+    Qt::WebEngineQuick
+  )
 endif()
 
 set(RESOURCE
