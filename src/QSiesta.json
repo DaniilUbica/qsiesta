@@ -12,4 +12,6 @@
     "DocumentationUrl" : "",
     "Dependencies" : [
         { "Id" : "core", "Version" : "19.0.0" }
-    ]}
+    ],
+    "Category" : "Fun"
+}
