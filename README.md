@@ -99,6 +99,12 @@ cmake --build build/local
 
 ---
 
+### Adding a mini-game
+
+See [src/MiniGames/README.md](src/MiniGames/README.md) for the architecture overview and a step-by-step guide to adding a new game. In short: implement `GameManagerBase` and add one line to `miniGameRegister.hpp` — nothing else needs to change.
+
+---
+
 ### Supported Qt Creator versions
 
 Only Qt Creator 19.0.0 supported at the moment

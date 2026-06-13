@@ -1,5 +1,7 @@
 #include "navigationWidget.h"
 
+#include "Base/gameManagerBase.h"
+
 #include <QQmlFileSelector>
 
 namespace QSiesta::Internal {
@@ -11,10 +13,13 @@ NavigationWidget::NavigationWidget(QWidget* parent) : QWidget(parent) {
     m_contentView->setResizeMode(QQuickView::SizeRootObjectToView);
     new QQmlFileSelector(m_contentView->engine(), m_contentView);
 
+    m_miniGamesManager = new minigame::MiniGamesManager(this);
+    m_miniGamesManager->setupContext(m_contentView);
+
     m_contentViewContainer = QWidget::createWindowContainer(m_contentView, this);
     m_contentViewContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_viewsModel = new ViewsModel(this);
+    m_viewsModel = new ViewsModel(m_miniGamesManager, this);
 
     m_treeView = new Utils::NavigationTreeView(this);
     m_treeView->setModel(m_viewsModel);
@@ -39,11 +44,22 @@ void NavigationWidget::openViewsList() {
 }
 
 void NavigationWidget::onModelItemClicked(const QModelIndex& index) {
-    if (const auto item = m_viewsModel->itemFromIndex(index)) {
-        m_contentView->setSource(item->data(ViewsModel::SourceRole).toUrl());
-        m_layout->setCurrentWidget(m_contentViewContainer);
-        Q_EMIT viewsListVisibleChanged(false);
+    const auto item = m_viewsModel->itemFromIndex(index);
+    if (!item) {
+        return;
     }
+
+    const auto gameVariant = item->data(ViewsModel::GameRole);
+    if (gameVariant.isValid()) {
+        auto* game = gameVariant.value<minigame::base::GameManagerBase*>();
+        if (game) {
+            m_miniGamesManager->setCurrentGame(game);
+        }
+    }
+
+    m_contentView->setSource(item->data(ViewsModel::SourceRole).toUrl());
+    m_layout->setCurrentWidget(m_contentViewContainer);
+    Q_EMIT viewsListVisibleChanged(false);
 }
 
 } // namespace QSiesta::Internal

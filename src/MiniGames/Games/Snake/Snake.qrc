@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/snake">
+        <file alias="QMSnakeGame.qml">qml/QMSnakeGame.qml</file>
+        <file alias="QMGameField.qml">qml/QMGameField.qml</file>
+        <file alias="QMGameOverlay.qml">qml/QMGameOverlay.qml</file>
+    </qresource>
+</RCC>
