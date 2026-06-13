@@ -72,7 +72,18 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgl1-mesa-dev
+        sudo apt-get install -y \
+          libgl1-mesa-dev \
+          libegl1-mesa-dev \
+          libnss3-dev \
+          libxcomposite-dev \
+          libxdamage-dev \
+          libxrandr-dev \
+          libxss1 \
+          libxtst-dev \
+          libpci-dev \
+          libudev-dev \
+          libcups2-dev
 
     - name: Install Qt
       id: qt
