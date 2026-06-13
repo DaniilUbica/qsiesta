@@ -105,6 +105,12 @@ jobs:
         unzip-to: 'qtcreator'
         platform: ${{ matrix.config.platform }}
 
+    - name: Setup MSVC
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
     - name: Build
       shell: cmake -P {0}
       run: |
