@@ -12,10 +12,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(QtCreator REQUIRED COMPONENTS Core)
 find_package(Qt6 COMPONENTS Widgets Quick QuickWidgets REQUIRED)
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Windows")
-  find_package(Qt6 COMPONENTS WebEngineQuick REQUIRED)
-endif()
-
 set(CREATOR_LIBS
   QtCreator::Core
 )
@@ -67,72 +63,8 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
   )
 
   enable_language(OBJCXX)
-elseif (CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Windows")
-  set(TARGET_LIBS
-    ${TARGET_LIBS}
-    Qt::WebEngineQuick
-  )
 endif()
 
-# ── Bundle Qt WebEngine for Linux / Windows ──────────────────────────────────
-if (CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Windows")
-
-  # Resolve Qt's bin dir from qmake location
-  get_target_property(_qmake Qt6::qmake IMPORTED_LOCATION)
-  get_filename_component(_qt_bin "${_qmake}" DIRECTORY)  # e.g. .../Qt/6.x/gcc_64/bin
-
-  if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-    set(_qt_lib     "${_qt_bin}/../lib")
-    set(_qt_libexec "${_qt_bin}/../libexec")
-    set(_qt_res     "${_qt_bin}/../resources")
-
-    set(_webengine_libs
-      "${_qt_lib}/libQt6WebEngineCore.so.6"
-      "${_qt_lib}/libQt6WebEngineQuick.so.6"
-      "${_qt_lib}/libQt6WebChannel.so.6"
-      "${_qt_lib}/libQt6Positioning.so.6"
-    )
-    set(_webengine_process "${_qt_libexec}/QtWebEngineProcess")
-
-  elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
-    set(_qt_lib     "${_qt_bin}")
-    set(_qt_res     "${_qt_bin}/../resources")
-
-    set(_webengine_libs
-      "${_qt_lib}/Qt6WebEngineCore.dll"
-      "${_qt_lib}/Qt6WebEngineQuick.dll"
-      "${_qt_lib}/Qt6WebChannel.dll"
-      "${_qt_lib}/Qt6Positioning.dll"
-    )
-    set(_webengine_process "${_qt_lib}/QtWebEngineProcess.exe")
-  endif()
-
-  # Shared libraries → next to the plugin
-  install(FILES ${_webengine_libs}
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/qtcreator"
-  )
-
-  # QtWebEngineProcess → libexec (Qt Creator searches here at runtime)
-  install(PROGRAMS "${_webengine_process}"
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/libexec/qtcreator"
-  )
-
-  # Data files: pak, icudtl.dat
-  install(DIRECTORY "${_qt_res}/"
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/qtcreator"
-    FILES_MATCHING
-      PATTERN "qtwebengine_resources.pak"
-      PATTERN "qtwebengine_devtools_resources.pak"
-      PATTERN "icudtl.dat"
-  )
-
-  # Chromium locale pak files
-  install(DIRECTORY "${_qt_bin}/../translations/qtwebengine_locales/"
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/qtcreator/qtwebengine_locales"
-  )
-
-endif()
-# ─────────────────────────────────────────────────────────────────────────────
 
 set(RESOURCE
   src/QMLFiles.qrc
