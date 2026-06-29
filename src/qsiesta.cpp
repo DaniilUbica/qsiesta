@@ -1,9 +1,5 @@
 #include "NavigationWidget/navigationWidgetFactory.h"
 
-#if defined(__linux__) || defined(_WIN32)
-    #include <QtWebEngineQuick/QtWebEngineQuick>
-#endif
-
 #include <extensionsystem/iplugin.h>
 
 #include "WebView/webViewRegister.hpp"
@@ -21,11 +17,7 @@ public:
     ~QSiestaPlugin() final {}
 
     void initialize() final {
-        #if defined(__linux__) || defined(_WIN32)
-            QtWebEngineQuick::initialize();
-        #else
-            webViewRegister::registerPlatformType();
-        #endif
+        webViewRegister::registerPlatformType();
         m_factory = std::make_unique<NavigationWidgetFactory>();
     }
 

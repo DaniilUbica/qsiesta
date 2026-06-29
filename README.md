@@ -24,7 +24,10 @@ Build times happen. Code reviews drag on. CI pipelines do whatever CI pipelines 
 
 ### What's available now
 
-- **TikTok** — native macOS WKWebView on macOS, Qt WebEngine on other platforms
+- **TikTok** — native macOS WKWebView (macOS only)
+- **Snake** — mini-game available on all platforms
+
+> **Note:** Web view (TikTok and other feeds) is currently only supported on macOS. On Linux and Windows the panel will show a "not supported" placeholder. Support for other platforms is planned.
 
 ---
 
@@ -41,16 +44,11 @@ Download the latest release for your platform from the [Releases](https://github
 
 #### 1. Find your Qt Creator installation directory
 
-On **Linux / Windows** run:
-```bash
-# Linux
-which qtcreator
-
-# Windows (PowerShell)
-(Get-Command qtcreator).Source
-```
-
-The **installation root** is the folder that contains `bin/`, `lib/`, `share/`.
+| Platform | Typical path |
+|----------|-------------|
+| macOS | `/Applications/Qt Creator.app/Contents` |
+| Linux | `~/Qt/Tools/QtCreator` |
+| Windows | `C:\Qt\Tools\QtCreator` |
 
 #### 2. Extract the archive
 
@@ -73,8 +71,6 @@ cd ~/Qt/Tools/QtCreator
 cd "C:\Qt\Tools\QtCreator"
 7z x QSiesta-19.0.0-Windows-x64.7z
 ```
-
-> **Linux / Windows only:** the archive also contains Qt WebEngine libraries and resources required by the plugin. Extracting into the Qt Creator root is important so Qt Creator can find `QtWebEngineProcess` and the resource files automatically.
 
 #### 3. Enable the plugin
 
